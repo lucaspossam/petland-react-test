@@ -1,0 +1,100 @@
+{
+  "cards": [
+    {
+      "id": "1",
+      "card": "bruce-card",
+      "sticker": "bruce-01",
+      "cardSticker": "bruce-card-01"
+    },
+    {
+      "id": "2",
+      "card": "bruce-card",
+      "sticker": "bruce-02",
+      "cardSticker": "bruce-card-02"
+    },
+    {
+      "id": "3",
+      "card": "bruce-card",
+      "sticker": "bruce-03",
+      "cardSticker": "bruce-card-03"
+    },
+    {
+      "id": "4",
+      "card": "bruce-card",
+      "sticker": "bruce-04",
+      "cardSticker": "bruce-card-04"
+    },
+    {
+      "id": "5",
+      "card": "bucky-card",
+      "sticker": "bucky-01",
+      "cardSticker": "bucky-card-01"
+    },
+    {
+      "id": "6",
+      "card": "bucky-card",
+      "sticker": "bucky-02",
+      "cardSticker": "bucky-card-02"
+    },
+    {
+      "id": "7",
+      "card": "bucky-card",
+      "sticker": "bucky-03",
+      "cardSticker": "bucky-card-03"
+    },
+    {
+      "id": "8",
+      "card": "bucky-card",
+      "sticker": "bucky-04",
+      "cardSticker": "bucky-card-04"
+    },
+    {
+      "id": "9",
+      "card": "carol-card",
+      "sticker": "carol-01",
+      "cardSticker": "carol-card-01"
+    },
+    {
+      "id": "10",
+      "card": "carol-card",
+      "sticker": "carol-02",
+      "cardSticker": "carol-card-02"
+    },
+    {
+      "id": "11",
+      "card": "carol-card",
+      "sticker": "carol-03",
+      "cardSticker": "carol-card-03"
+    },
+    {
+      "id": "12",
+      "card": "carol-card",
+      "sticker": "carol-04",
+      "cardSticker": "carol-card-04"
+    },
+    {
+      "id": "13",
+      "card": "clint-card",
+      "sticker": "clint-01",
+      "cardSticker": "clint-card-01"
+    },
+    {
+      "id": "14",
+      "card": "clint-card",
+      "sticker": "clint-02",
+      "cardSticker": "clint-card-02"
+    },
+    {
+      "id": "15",
+      "card": "clint-card",
+      "sticker": "clint-03",
+      "cardSticker": "clint-card-03"
+    },
+    {
+      "id": "16",
+      "card": "clint-card",
+      "sticker": "clint-04",
+      "cardSticker": "clint-card-04"
+    }
+  ]
+}
