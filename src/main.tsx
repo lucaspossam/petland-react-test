@@ -1,12 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { App } from './app'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./app";
 
-import './styles/global.css'
+import "./styles/global.css";
+import { PlayingCardsProvider } from "./contexts/playing-cards-context";
 
-
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <PlayingCardsProvider>
+      <App />
+    </PlayingCardsProvider>
+  </StrictMode>
+);
