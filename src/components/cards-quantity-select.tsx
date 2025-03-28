@@ -21,13 +21,14 @@ export function CardsQuantitySelect({
         <div className="flex items-center border rounded-md w-fit px-3 py-1">
           <button
             onClick={decrement}
-            className="p-1 text-gray-600 hover:text-black"
+            className="p-1 text-gray-600 hover:text-black hover:cursor-pointer"
             disabled={pairs <= 2}
           >
             <Minus size={20} />
           </button>
           <input
-            type="number"
+            type="text"
+            disabled
             value={pairs}
             onChange={e => setPairs(Number(e.target.value))}
             className="w-12 text-center border-none focus:outline-none"
@@ -36,7 +37,7 @@ export function CardsQuantitySelect({
           />
           <button
             onClick={increment}
-            className="p-1 text-gray-600 hover:text-black"
+            className="p-1 text-gray-600 hover:text-black hover:cursor-pointer"
             disabled={pairs >= 16}
           >
             <Plus size={20} />

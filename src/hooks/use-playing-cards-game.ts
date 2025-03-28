@@ -8,20 +8,14 @@ export function usePlayingCardsGame() {
     correctPairs,
     selectedCards,
     selectCard,
-    updateCorrectPairs,
-    removeSelection,
     playingCardTimer,
     gameStage,
     restartCardsGame,
     loadingCards,
+    tries,
+    score,
+    matchCards,
   } = usePlayingCards();
-
-  const isCorrectPairs = () => {
-    const card1 = selectedCards[0];
-    const card2 = selectedCards[1];
-
-    return card1.id === card2.id && card1.key !== card2.key;
-  };
 
   const handleSelectCard = (card: Card) => {
     selectCard(card);
@@ -29,24 +23,14 @@ export function usePlayingCardsGame() {
 
   useEffect(() => {
     if (selectedCards.length === 2) {
-      if (isCorrectPairs()) {
-        updateCorrectPairs(selectedCards);
-        removeSelection();
-      } else {
-        playingCardTimer.current = setTimeout(() => {
-          removeSelection();
-        }, 1000);
-      }
+      matchCards();
     }
-  }, [selectedCards]);
-
-  useEffect(() => {
     return () => {
       if (playingCardTimer.current) {
         clearTimeout(playingCardTimer.current);
       }
     };
-  }, []);
+  }, [selectedCards]);
 
   return {
     playingCards,
@@ -57,5 +41,7 @@ export function usePlayingCardsGame() {
     restartCardsGame,
     gameStage,
     loadingCards,
+    tries,
+    score,
   };
 }

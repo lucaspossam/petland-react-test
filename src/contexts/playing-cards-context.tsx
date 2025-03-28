@@ -26,11 +26,12 @@ interface PlayingCardsContextType {
   correctPairs: Card[];
   selectCard: (card: Card) => void;
   startCardsGame: (pairs: number) => void;
-  removeSelection: () => void;
-  updateCorrectPairs: (cards: Card[]) => void;
   restartCardsGame: () => void;
   playingCardTimer: RefObject<number | null>;
   loadingCards: boolean;
+  tries: number;
+  score: number;
+  matchCards: () => void;
 }
 
 const PlayingCardsContext = createContext<PlayingCardsContextType | undefined>(
@@ -43,7 +44,8 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   const [correctPairs, setCorrectPairs] = useState<Card[]>([]);
   const [gameStage, setGameStage] = useState<GameStage>("start");
   const [loadingCards, setLoadingCards] = useState(false);
-
+  const [tries, setTries] = useState(0);
+  const [score, setScore] = useState(0);
   const playingCardTimer = useRef<null | number>(null);
 
   const preparePlayingCards = (cards: Card[]) => {
@@ -63,8 +65,6 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
     if (!cards.error && cards.length) {
       const shuffledCards = preparePlayingCards(cards);
       setPlayingCards(shuffledCards);
-      setCorrectPairs([]);
-      setSelectedCards([]);
       setGameStage("playing");
 
       if (playingCardTimer.current) {
@@ -80,6 +80,8 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
     setCorrectPairs([]);
     setSelectedCards([]);
     setPlayingCards([]);
+    setTries(0);
+    setScore(0);
     setTimeout(() => {
       setLoadingCards(false);
     }, 1000);
@@ -99,7 +101,27 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const updateCorrectPairs = (cards: Card[]) => {
+    setScore(score + 1);
     setCorrectPairs([...correctPairs, ...cards]);
+  };
+
+  const isCorrectPairs = () => {
+    const card1 = selectedCards[0];
+    const card2 = selectedCards[1];
+
+    return card1.id === card2.id && card1.key !== card2.key;
+  };
+
+  const matchCards = () => {
+    setTries(tries + 1);
+    if (isCorrectPairs()) {
+      updateCorrectPairs(selectedCards);
+      removeSelection();
+    } else {
+      playingCardTimer.current = setTimeout(() => {
+        removeSelection();
+      }, 1000);
+    }
   };
 
   return (
@@ -110,12 +132,13 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
         correctPairs,
         selectCard,
         startCardsGame,
-        removeSelection,
-        updateCorrectPairs,
         playingCardTimer,
         gameStage,
         restartCardsGame,
         loadingCards,
+        tries,
+        score,
+        matchCards,
       }}
     >
       {children}

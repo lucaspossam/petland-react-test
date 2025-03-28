@@ -5,7 +5,8 @@ import { GameButton } from "../components/game-button";
 
 export function GameControls() {
   const { startCardsGame, restartCardsGame, gameStage } = usePlayingCardsGame();
-  const [pairs, setPairs] = useState<number>(16);
+
+  const [pairs, setPairs] = useState<number>(10);
   return (
     <div className="w-full flex items-center justify-center h-fit ">
       {gameStage === "start" && (
