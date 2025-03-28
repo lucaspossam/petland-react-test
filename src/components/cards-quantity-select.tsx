@@ -13,10 +13,10 @@ export function CardsQuantitySelect({
   const decrement = (): void => setPairs(prev => Math.max(prev - 1, 2));
 
   return (
-    <div className="w-[900px] flex flex-col items-center justify-center h-fit">
+    <div className="w-full flex flex-col items-center justify-center h-fit">
       <div className="flex flex-col items-center space-y-2">
         <label className="text-center font-roboto pb-2">
-          Selecione a quantidade de pares para adivinhar :)
+          Selecione a quantidade de pares para adivinhar! 🐱‍💻
         </label>
         <div className="flex items-center border rounded-md w-fit px-3 py-1">
           <button
