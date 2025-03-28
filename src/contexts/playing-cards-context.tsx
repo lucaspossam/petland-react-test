@@ -32,6 +32,7 @@ interface PlayingCardsContextType {
   tries: number;
   score: number;
   matchCards: () => void;
+  handleSessionStorageData: () => void;
 }
 
 const PlayingCardsContext = createContext<PlayingCardsContextType | undefined>(
@@ -47,6 +48,25 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   const [tries, setTries] = useState(0);
   const [score, setScore] = useState(0);
   const playingCardTimer = useRef<null | number>(null);
+
+  const handleSessionStorageData = () => {
+    const sessionPlayingCards = JSON.parse(
+      sessionStorage.getItem("playingCards") ?? "[]"
+    );
+
+    const sessionCorrectPairs = JSON.parse(
+      sessionStorage.getItem("correctPairs") ?? "[]"
+    );
+
+    const sessionTries = parseInt(sessionStorage.getItem("tries") ?? "0");
+    const sessionScore = parseInt(sessionStorage.getItem("score") ?? "0");
+
+    setGameStage("playing");
+    setPlayingCards(sessionPlayingCards);
+    setCorrectPairs(sessionCorrectPairs);
+    setTries(sessionTries);
+    setScore(sessionScore);
+  };
 
   const preparePlayingCards = (cards: Card[]) => {
     const doubledCards = [...cards, ...cards];
@@ -67,6 +87,9 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
       setPlayingCards(shuffledCards);
       setGameStage("playing");
 
+      sessionStorage.setItem("playingCards", JSON.stringify(shuffledCards));
+      sessionStorage.setItem("gameStage", "playing");
+
       if (playingCardTimer.current) {
         clearTimeout(playingCardTimer.current);
       }
@@ -80,6 +103,13 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
     setCorrectPairs([]);
     setSelectedCards([]);
     setPlayingCards([]);
+
+    sessionStorage.setItem("gameStage", "start");
+    sessionStorage.setItem("playingCards", JSON.stringify([]));
+    sessionStorage.setItem("correctPairs", JSON.stringify([]));
+    sessionStorage.setItem("tries", "0");
+    sessionStorage.setItem("score", "0");
+
     setTries(0);
     setScore(0);
     setTimeout(() => {
@@ -101,7 +131,13 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const updateCorrectPairs = (cards: Card[]) => {
-    setScore(score + 1);
+    const sumScore = score + 1;
+    setScore(sumScore);
+    sessionStorage.setItem("score", sumScore.toString());
+    sessionStorage.setItem(
+      "correctPairs",
+      JSON.stringify([...correctPairs, ...cards])
+    );
     setCorrectPairs([...correctPairs, ...cards]);
   };
 
@@ -113,7 +149,9 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const matchCards = () => {
-    setTries(tries + 1);
+    const sumTries = tries + 1;
+    setTries(sumTries);
+    sessionStorage.setItem("tries", sumTries.toString());
     if (isCorrectPairs()) {
       updateCorrectPairs(selectedCards);
       removeSelection();
@@ -139,6 +177,7 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
         tries,
         score,
         matchCards,
+        handleSessionStorageData,
       }}
     >
       {children}

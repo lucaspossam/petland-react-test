@@ -15,11 +15,18 @@ export function usePlayingCardsGame() {
     tries,
     score,
     matchCards,
+    handleSessionStorageData,
   } = usePlayingCards();
 
   const handleSelectCard = (card: Card) => {
     selectCard(card);
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("gameStage") === "playing") {
+      handleSessionStorageData();
+    }
+  }, []);
 
   useEffect(() => {
     if (selectedCards.length === 2) {
