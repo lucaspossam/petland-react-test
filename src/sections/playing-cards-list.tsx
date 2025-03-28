@@ -12,7 +12,7 @@ export function PlayingCardsList() {
     );
   };
 
-  if (gameStage === "playing")
+  if (gameStage !== "start")
     return (
       <div className="w-full flex items-start justify-center flex-1 h-full p-5 sm:px-7">
         <div className="w-full flex flex-wrap justify-center gap-1 ">

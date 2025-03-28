@@ -17,7 +17,7 @@ export interface Card {
   selected?: boolean;
 }
 
-type GameStage = "start" | "playing" | "completed";
+type GameStage = "start" | "playing" | "completed" | string;
 
 interface PlayingCardsContextType {
   gameStage: GameStage;
@@ -61,7 +61,9 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
     const sessionTries = parseInt(sessionStorage.getItem("tries") ?? "0");
     const sessionScore = parseInt(sessionStorage.getItem("score") ?? "0");
 
-    setGameStage("playing");
+    const sessionGameStage = sessionStorage.getItem("gameStage") ?? "start";
+
+    setGameStage(sessionGameStage);
     setPlayingCards(sessionPlayingCards);
     setCorrectPairs(sessionCorrectPairs);
     setTries(sessionTries);
@@ -138,6 +140,11 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
       "correctPairs",
       JSON.stringify([...correctPairs, ...cards])
     );
+
+    if (sumScore === playingCards.length / 2) {
+      sessionStorage.setItem("gameStage", "completed");
+      setGameStage("completed");
+    }
     setCorrectPairs([...correctPairs, ...cards]);
   };
 

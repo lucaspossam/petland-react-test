@@ -9,13 +9,12 @@ export function GameControls() {
   const [pairs, setPairs] = useState<number>(10);
   return (
     <div className="w-full flex items-center justify-center h-fit ">
-      {gameStage === "start" && (
+      {gameStage === "start" ? (
         <div className="items-center justify-center flex flex-col">
           <CardsQuantitySelect pairs={pairs} setPairs={setPairs} />
           <GameButton onClick={() => startCardsGame(pairs)} text="Start Game" />
         </div>
-      )}
-      {gameStage === "playing" && (
+      ) : (
         <GameButton onClick={restartCardsGame} text="Restart Game" />
       )}
     </div>

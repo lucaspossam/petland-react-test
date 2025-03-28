@@ -4,6 +4,7 @@ import { usePlayingCardsGame } from "./hooks/use-playing-cards-game";
 import { GameControls } from "./sections/game-controls";
 import { Header } from "./sections/header";
 import { PlayingCardsList } from "./sections/playing-cards-list";
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 
 export function App() {
   const { loadingCards, gameStage, tries, score } = usePlayingCardsGame();
@@ -17,7 +18,7 @@ export function App() {
             : "opacity-0 translate-y-4"
         }`}
       >
-        {gameStage === "playing" && (
+        {gameStage !== "start" && (
           <GameScoreBoard tries={tries} score={score} />
         )}
         <GameControls />
@@ -30,6 +31,8 @@ export function App() {
       >
         <Loading />
       </div>
+
+      {gameStage === "completed" && <Fireworks autorun={{ speed: 3 }} />}
     </div>
   );
 }

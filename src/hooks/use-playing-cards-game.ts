@@ -23,7 +23,7 @@ export function usePlayingCardsGame() {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("gameStage") === "playing") {
+    if (sessionStorage.getItem("gameStage") !== "start") {
       handleSessionStorageData();
     }
   }, []);
