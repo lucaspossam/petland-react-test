@@ -13,6 +13,7 @@ export function usePlayingCardsGame() {
     playingCardTimer,
     gameStage,
     restartCardsGame,
+    loadingCards,
   } = usePlayingCards();
 
   const isCorrectPairs = () => {
@@ -55,5 +56,6 @@ export function usePlayingCardsGame() {
     startCardsGame,
     restartCardsGame,
     gameStage,
+    loadingCards,
   };
 }

@@ -20,7 +20,7 @@ export function PlayingCard({ card, turned }: PlayingCard) {
   };
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} className="hover:cursor-pointer">
       {turned ? (
         <img
           src={`${IMAGES_PATH}/${card.cardSticker}.${IMAGES_TYPE}`}

@@ -7,9 +7,9 @@ export function GameControls() {
   const { startCardsGame, restartCardsGame, gameStage } = usePlayingCardsGame();
   const [pairs, setPairs] = useState<number>(16);
   return (
-    <div className="w-full flex items-center justify-center h-fit transition">
+    <div className="w-full flex items-center justify-center h-fit ">
       {gameStage === "start" && (
-        <div>
+        <div className="items-center justify-center flex flex-col">
           <CardsQuantitySelect pairs={pairs} setPairs={setPairs} />
           <GameButton onClick={() => startCardsGame(pairs)} text="Start Game" />
         </div>

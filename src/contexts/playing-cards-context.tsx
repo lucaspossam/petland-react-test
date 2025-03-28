@@ -30,6 +30,7 @@ interface PlayingCardsContextType {
   updateCorrectPairs: (cards: Card[]) => void;
   restartCardsGame: () => void;
   playingCardTimer: RefObject<number | null>;
+  loadingCards: boolean;
 }
 
 const PlayingCardsContext = createContext<PlayingCardsContextType | undefined>(
@@ -41,6 +42,7 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [correctPairs, setCorrectPairs] = useState<Card[]>([]);
   const [gameStage, setGameStage] = useState<GameStage>("start");
+  const [loadingCards, setLoadingCards] = useState(false);
 
   const playingCardTimer = useRef<null | number>(null);
 
@@ -56,6 +58,7 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const startCardsGame = async (pairs: number) => {
+    setLoadingCards(true);
     const cards = await getPlayingCards(pairs);
     if (!cards.error && cards.length) {
       const shuffledCards = preparePlayingCards(cards);
@@ -68,14 +71,18 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
         clearTimeout(playingCardTimer.current);
       }
     }
+    setLoadingCards(false);
   };
 
   const restartCardsGame = () => {
-    setPlayingCards([]);
+    setLoadingCards(true);
+    setGameStage("start");
     setCorrectPairs([]);
     setSelectedCards([]);
-    setGameStage("start");
-
+    setPlayingCards([]);
+    setTimeout(() => {
+      setLoadingCards(false);
+    }, 1000);
     if (playingCardTimer.current) {
       clearTimeout(playingCardTimer.current);
     }
@@ -108,6 +115,7 @@ export const PlayingCardsProvider = ({ children }: { children: ReactNode }) => {
         playingCardTimer,
         gameStage,
         restartCardsGame,
+        loadingCards,
       }}
     >
       {children}

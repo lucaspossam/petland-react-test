@@ -7,7 +7,7 @@ export function GameButton({ onClick, text }: GameButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="rounded text-1xl p-2 text-zinc-800 font-bold hover:underline transition-all"
+      className={`px-6 py-2 my-3 bg-primary text-white font-semibold rounded-md hover:bg-orange-700 hover:cursor-pointer disabled:bg-gray-400`}
     >
       {text}
     </button>
